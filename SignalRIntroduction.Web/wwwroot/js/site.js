@@ -1,4 +1,6 @@
-﻿"use strict";
+﻿/// <reference path="chatroom.js" />
+
+"use strict";
 
 function RegisterUser() {
     var usernameInput = document.getElementById("username");
