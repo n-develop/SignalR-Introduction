@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - RealtimeChatter</title>
+
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="lib/bulma/bulma.min.css"/>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    @RenderBody()
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="lib/fontawesome/font-awesome.js"></script>
+</body>
+</html>
