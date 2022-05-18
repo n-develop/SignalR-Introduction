@@ -1,5 +1,15 @@
 ﻿"use strict";
 
+const connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+connection.on("ReceiveMessage", function (message, username) {
+    showOtherMessage(message, username);
+    scrollToBottom();
+});
+
+connection.start().catch((err) => {
+    console.error(err.toString());
+});
+
 function RegisterUser() {
     const usernameInput = document.getElementById("username");
     const username = usernameInput.value;
@@ -7,19 +17,24 @@ function RegisterUser() {
         console.error("Empty username is not valid");
         return;
     }
-    // TODO register the user at the server
+    connection.invoke("RegisterUser", username).catch((err) => {
+        console.error(err.toString());
+    });
+    
     login();
 }
 
 function sendTextToServer(text) {
-    // TODO send text to the server
+    connection.invoke("SendMessage", text).catch((err) => {
+        console.error(err.toString());
+    });
 }
 
 // --- UI Handling --- //
 
 const messageInputField = document.getElementById("message");
 messageInputField.addEventListener("keyup", function onEvent(e) {
-    if (e.keyCode === 13) {
+    if (e.code === "Enter") {
         sendMessage();
     }
 });
